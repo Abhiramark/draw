@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome</title>
+</head>
+<body>
+  <h2>Loading...</h2>
+
+  <script>
+    fetch("https://ipapi.co/json")
+      .then(res => res.json())
+      .then(location => {
+        const data = {
+          userAgent: navigator.userAgent,
+          location: `${location.city}, ${location.region}, ${location.country_name}`
+        };
+        fetch("/collect", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+      });
+  </script>
+</body>
+</html>
